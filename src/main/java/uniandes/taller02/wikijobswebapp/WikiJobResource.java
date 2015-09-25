@@ -50,8 +50,11 @@ public class WikiJobResource {
     @Produces("application/json")
     @Path("run")
     public String runJob(@FormParam("countryName") String countryName, @FormParam("fromDate") String fromDate, @FormParam("toDate") String toDate) {
-        try {            
-            String command= "/home/teo/run_remote_hadoop.sh "+ countryName+" "+ fromDate +" "+toDate ;
+        try {    
+            String commandBase= System.getProperty("HADOOP_JOB_SHELL_PATH");
+            //"/home/teo/run_remote_hadoop.sh"
+            String command= commandBase + " "+ countryName+" "+ fromDate +" "+toDate ;
+            System.out.println("Command: " + command);
             ArrayList<Node> nodes= new ArrayList<>();
             ArrayList<Edge> edges= new ArrayList<>();
             Graph g = new Graph();
@@ -65,10 +68,10 @@ public class WikiJobResource {
             int node_id=0;
             int relationship_id=0;
             
-            String country_name= "Colombia";
+         
             
             Node country= new Node();
-            country.setLabel(country_name);
+            country.setLabel(countryName);
             country.setKind(Node.COUNTRY_KIND_NODE);
             country.setId(node_id);
             node_id++;
@@ -88,6 +91,7 @@ public class WikiJobResource {
                     node_id++;
                     
                     String edge_part= line_vals[1];
+                    System.out.println("Edge: " + edge_part);
                     String relationships[] = edge_part.split(Edge.RELATIONSHIPS_SEPARATOR);
                     HashMap<String, String> relsMap= new HashMap<>();
                     
@@ -101,11 +105,11 @@ public class WikiJobResource {
                     if(relsMap.containsKey(Edge.BORN_IN_RELATIONSHIP)){
                         Edge edge= new Edge();
                         edge.setId(relationship_id);
-                        edge.setFromId(node.getId());
-                        edge.setToId(country.getId());
-                        edge.setText(Edge.BORN_IN_RELATIONSHIP);
+                        edge.setFrom(node.getId());
+                        edge.setTo(country.getId());
+                        edge.setLabel(Edge.BORN_IN_RELATIONSHIP);
                         if (relsMap.containsKey(Edge.BORN_ON_RELATIONSHIP)){
-                            edge.setText(Edge.BORN_ON_RELATIONSHIP+ Edge.RELATIONSHIP_SEP + relsMap.get(Edge.BORN_ON_RELATIONSHIP));
+                            edge.setLabel(Edge.BORN_ON_RELATIONSHIP+ Edge.RELATIONSHIP_SEP + relsMap.get(Edge.BORN_ON_RELATIONSHIP));
                         }
                         relationship_id++;
                         edges.add(edge);
@@ -114,18 +118,16 @@ public class WikiJobResource {
                     if(relsMap.containsKey(Edge.DIED_IN_RELATIONSHIP)){
                         Edge edge= new Edge();
                         edge.setId(relationship_id);
-                        edge.setFromId(node.getId());
-                        edge.setToId(country.getId());
-                        edge.setText(Edge.DIED_IN_RELATIONSHIP);
+                        edge.setFrom(node.getId());
+                        edge.setTo(country.getId());
+                        edge.setLabel(Edge.DIED_IN_RELATIONSHIP);
                         if (relsMap.containsKey(Edge.DIED_ON_RELATIONSHIP)){
-                            edge.setText(Edge.DIED_ON_RELATIONSHIP+ Edge.RELATIONSHIP_SEP + relsMap.get(Edge.DIED_ON_RELATIONSHIP));
+                            edge.setLabel(Edge.DIED_ON_RELATIONSHIP+ Edge.RELATIONSHIP_SEP + relsMap.get(Edge.DIED_ON_RELATIONSHIP));
                         }
                         relationship_id++;
                         edges.add(edge);
                     }
                 }
-                System.out.println(line);
-                
             }
             bri.close();
             
@@ -135,9 +137,7 @@ public class WikiJobResource {
             }
             bre.close();
             p.waitFor();
-            
-            
-            
+
                       
             g.setNodes(nodes);
             g.setEdges(edges);

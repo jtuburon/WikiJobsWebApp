@@ -23,9 +23,9 @@ public class Edge {
     
     
     private int id;
-    private String text;
-    private int fromId;
-    private int toId;
+    private String label;
+    private int from;
+    private int to;
     
    
     public Edge() {
@@ -39,29 +39,33 @@ public class Edge {
         this.id = id;
     }
 
-    public String getText() {
-        return text;
+    public String getLabel() {
+        return label;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setLabel(String label) {
+        this.label = label;
     }
 
-    public int getFromId() {
-        return fromId;
+   
+
+    public int getFrom() {
+        return from;
     }
 
-    public void setFromId(int fromId) {
-        this.fromId = fromId;
+    public void setFrom(int from) {
+        this.from = from;
     }
 
-    public int getToId() {
-        return toId;
+    public int getTo() {
+        return to;
     }
 
-    public void setToId(int toId) {
-        this.toId = toId;
+    public void setTo(int to) {
+        this.to = to;
     }
+
+   
 
     
 }
