@@ -23,7 +23,7 @@ public class Edge {
     
     
     private int id;
-    private String label;
+    private String name;
     private int from;
     private int to;
     
@@ -39,15 +39,13 @@ public class Edge {
         this.id = id;
     }
 
-    public String getLabel() {
-        return label;
+    public String getName() {
+        return name;
     }
 
-    public void setLabel(String label) {
-        this.label = label;
+    public void setName(String name) {
+        this.name = name;
     }
-
-   
 
     public int getFrom() {
         return from;
@@ -64,8 +62,4 @@ public class Edge {
     public void setTo(int to) {
         this.to = to;
     }
-
-   
-
-    
 }

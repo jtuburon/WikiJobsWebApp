@@ -107,9 +107,9 @@ public class WikiJobResource {
                         edge.setId(relationship_id);
                         edge.setFrom(node.getId());
                         edge.setTo(country.getId());
-                        edge.setLabel(Edge.BORN_IN_RELATIONSHIP);
+                        edge.setName(Edge.BORN_IN_RELATIONSHIP);
                         if (relsMap.containsKey(Edge.BORN_ON_RELATIONSHIP)){
-                            edge.setLabel(Edge.BORN_ON_RELATIONSHIP+ Edge.RELATIONSHIP_SEP + relsMap.get(Edge.BORN_ON_RELATIONSHIP));
+                            edge.setName(Edge.BORN_ON_RELATIONSHIP+ Edge.RELATIONSHIP_SEP + relsMap.get(Edge.BORN_ON_RELATIONSHIP));
                         }
                         relationship_id++;
                         edges.add(edge);
@@ -120,9 +120,9 @@ public class WikiJobResource {
                         edge.setId(relationship_id);
                         edge.setFrom(node.getId());
                         edge.setTo(country.getId());
-                        edge.setLabel(Edge.DIED_IN_RELATIONSHIP);
+                        edge.setName(Edge.DIED_IN_RELATIONSHIP);
                         if (relsMap.containsKey(Edge.DIED_ON_RELATIONSHIP)){
-                            edge.setLabel(Edge.DIED_ON_RELATIONSHIP+ Edge.RELATIONSHIP_SEP + relsMap.get(Edge.DIED_ON_RELATIONSHIP));
+                            edge.setName(Edge.DIED_ON_RELATIONSHIP+ Edge.RELATIONSHIP_SEP + relsMap.get(Edge.DIED_ON_RELATIONSHIP));
                         }
                         relationship_id++;
                         edges.add(edge);

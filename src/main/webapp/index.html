@@ -57,11 +57,26 @@
                             <input type="text" class="form-control datepicker" value="1950-01-01" data-date-format="yyyy-mm-dd" id="fromDate">
                         </div>
                         <div class="form-group">
-                            <label for="toDate">Pais:</label>
+                            <label for="toDate">Fecha Fin:</label>
                             <input type="text" class="form-control datepicker" value="2015-10-01" data-date-format="yyyy-mm-dd" id="toDate">
-                        </div>                     
-                        <button onClick="javascript:runJob()" type="button" class="btn btn-default">Submit</button>
-                    </form>
+                        </div>
+                        <button onClick="javascript:runJob()" type="button" class="btn btn-default">Buscar</button>
+                   </form>
+
+                </div>
+                
+                <div class="sidebar-nav navbar-collapse">
+                   <div class="form-group">
+                       <label for="filter">Filtro:</label>
+                       <select disabled="true" id="filter" class="form-control">
+                           <option value="all">Todos</option>
+                           <option value="born_in">born_in</option>
+                           <option value="born_on">born_on</option>
+                           <option value="died_in">died_in</option>
+                           <option value="died_on">died_on</option>
+                       </select>
+
+                   </div>
                 </div>
                 <!-- /.sidebar-collapse -->
             </div>
