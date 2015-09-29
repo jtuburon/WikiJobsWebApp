@@ -15,11 +15,6 @@
     <!-- Bootstrap Core CSS -->
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- MetisMenu CSS -->
-    <link href="bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
-    
-    
-
     <!-- Timeline CSS -->
     <link href="dist/css/timeline.css" rel="stylesheet">
     <link href="dist/css/ionicons.min.css" rel="stylesheet">
@@ -28,9 +23,7 @@
     <link href="dist/css/sb-admin-2.css" rel="stylesheet">
     <link href="dist/css/datepicker.css" rel="stylesheet">
     
-    <!-- Morris Charts CSS -->
-    <link href="bower_components/morrisjs/morris.css" rel="stylesheet">
-
+   
     <!-- Custom Fonts -->
     <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     
@@ -87,6 +80,22 @@
         </div>
         <!-- /#page-wrapper -->
 
+    </div>
+    
+
+    <!-- Modal -->
+    <div class="modal fade" id="wikiPageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="page_title"></h4>
+                </div>
+                <div class="modal-body">
+                    <iframe id="page_iframe" style="width: 100%; height: 100%" src=""></iframe>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- /#wrapper -->
 

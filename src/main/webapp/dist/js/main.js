@@ -28,7 +28,6 @@ function runJob() {
             }
         }
     });
-
 }
 
 var nodes = null;
@@ -73,6 +72,31 @@ function draw(graph) {
         }
     };
     network = new vis.Network(container, data, options);
+    network.on("selectNode", function (params) {
+        node_id= params.nodes[0];
+        n= findNode(node_id);
+        if(n){
+            //console.log(n.pageURL);
+            $("#page_title").text(n.label);
+            $("#page_iframe").attr("src", n.pageURL+"?printable=yes");
+            $("#wikiPageModal").modal('show');
+        }
+    });
+}
+
+function findNode(node_id){
+    var j = 0;
+    var found=false;
+    node = null;
+    while (j < nodes.length && !found) {
+        if (nodes[j].id == node_id) {
+            node= nodes[j];
+            found = true;
+        } else {
+            j++;
+        }
+    }
+    return node;
 }
 
 // Called when the Visualization API is loaded.
