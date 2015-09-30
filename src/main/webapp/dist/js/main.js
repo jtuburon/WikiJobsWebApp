@@ -43,6 +43,8 @@ function draw(graph) {
     // value corresponds with the amount of contact between two people
     edges = graph.edges;
     
+    console.log(nodes);
+    
     dir = "dist/images/"
     $.each(nodes, function (index, node) {
         node.shape = 'circularImage';
@@ -154,4 +156,14 @@ function filterAndDraw() {
         }
     };
     network = new vis.Network(container, data, options);
+    network.on("selectNode", function (params) {
+        start_node_id= params.nodes[0];
+        n= findNode(start_node_id);
+        if(n){
+            console.log(n.pageURL);
+            $("#page_title").text(n.label);
+            $("#page_iframe").attr("src", n.pageURL+"?printable=yes");
+            $("#wikiPageModal").modal('show');
+        }
+    });
 }

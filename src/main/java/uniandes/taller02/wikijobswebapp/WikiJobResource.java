@@ -34,6 +34,8 @@ public class WikiJobResource {
     private UriInfo context;
     
     private JSONSerializer serializer;
+    
+    private final static String WIKI_BASE_URL="https://en.wikipedia.org/wiki/";
 
     /**
      * Creates a new instance of WikiJobResource
@@ -74,6 +76,7 @@ public class WikiJobResource {
             country.setLabel(countryName);
             country.setKind(Node.COUNTRY_KIND_NODE);
             country.setId(node_id);
+            country.setPageURL(WIKI_BASE_URL + countryName.replaceAll("\\s+", "_"));
             node_id++;
             nodes.add(country);
             
@@ -85,7 +88,7 @@ public class WikiJobResource {
                     node.setId(node_id);
                     node.setLabel(line_vals[0]);                    
                     node.setKind(Node.PERSON_KIND_NODE);
-                    node.setPageURL("https://en.wikipedia.org/wiki/" + line_vals[0].replaceAll("\\s+", "_"));
+                    node.setPageURL(WIKI_BASE_URL + node.getLabel().replaceAll("\\s+", "_"));
                     
                     nodes.add(node);
                     node_id++;
@@ -140,6 +143,7 @@ public class WikiJobResource {
                             spouseNode.setId(node_id);
                             spouseNode.setKind(Node.PERSON_KIND_NODE);
                             spouseNode.setLabel(value);
+                            spouseNode.setPageURL(WIKI_BASE_URL + spouseNode.getLabel().replaceAll("\\s+", "_"));
                             nodes.add(spouseNode);
                             node_id++;
 
@@ -160,6 +164,7 @@ public class WikiJobResource {
                             childNode.setId(node_id);
                             childNode.setKind(Node.PERSON_KIND_NODE);
                             childNode.setLabel(value);
+                            childNode.setPageURL(WIKI_BASE_URL + childNode.getLabel().replaceAll("\\s+", "_"));
                             nodes.add(childNode);
                             node_id++;
 
