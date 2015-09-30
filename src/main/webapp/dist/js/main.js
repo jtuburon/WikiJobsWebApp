@@ -73,8 +73,8 @@ function draw(graph) {
     };
     network = new vis.Network(container, data, options);
     network.on("selectNode", function (params) {
-        node_id= params.nodes[0];
-        n= findNode(node_id);
+        start_node_id= params.nodes[0];
+        n= findNode(start_node_id);
         if(n){
             //console.log(n.pageURL);
             $("#page_title").text(n.label);
@@ -105,34 +105,24 @@ function filterAndDraw() {
     temp_nodes=[];
     temp_edges=[];
     
-    
-    $.each(nodes, function (index, node) {
-        temp_nodes.push(node);
-    });
-
-    $.each(edges, function (index, edge) {
-        temp_edges.push(edge);
-    });
-
     if (filter!='all'){
-        i=0;
-        edgesLen = temp_edges.length
-        for(var i = 0;  i < edgesLen; i++) {
-            e = temp_edges[i];
-            if (e.name.indexOf(filter)<0) {                
-                node_id= e.from;
-                var removed =false;
-                var j=0; 
-                while(j<temp_nodes.length && !removed){
-                    if(temp_nodes[j].id==node_id){
-                        temp_nodes.splice(j, 1);
-                        removed=true;
-                    }else{
-                        j++;
-                    }                    
-                }
+        $.each(edges, function (index, e) {
+            if (e.name.indexOf(filter)>=0){
+                temp_edges.push(e);
+                start_node_id= e.from;
+                end_node_id= e.to;
+                $.each(nodes, function (index, n) {
+                    if(n.id==start_node_id || n.id==end_node_id ){
+                        if(temp_nodes.indexOf(n)<0){
+                            temp_nodes.push(n);
+                        }
+                    }
+                });
             }
-        }
+        });        
+    }else{
+        temp_nodes= nodes;
+        temp_edges= edges;
     }
     
     dir = "dist/images/"
