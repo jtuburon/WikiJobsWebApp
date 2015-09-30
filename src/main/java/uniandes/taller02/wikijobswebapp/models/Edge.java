@@ -21,6 +21,8 @@ public class Edge {
     public final static String DIED_IN_RELATIONSHIP= "died_in";
     public final static String DIED_ON_RELATIONSHIP= "died_on";
     
+    public final static String MARRIED_WITH_RELATIONSHIP= "married_with";
+    public final static String SON_OR_DAUGHTER_RELATIONSHIP= "son_or_daughter";
     
     private int id;
     private String name;

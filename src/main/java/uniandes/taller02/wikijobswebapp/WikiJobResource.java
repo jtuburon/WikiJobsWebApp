@@ -93,14 +93,20 @@ public class WikiJobResource {
                     String edge_part= line_vals[1];
                     System.out.println("Edge: " + edge_part);
                     String relationships[] = edge_part.split(Edge.RELATIONSHIPS_SEPARATOR);
-                    HashMap<String, String> relsMap= new HashMap<>();
+                    HashMap<String, ArrayList<String>> relsMap= new HashMap<>();
                     
                     for (int i = 0; i < relationships.length; i++) {
                         String relationship = relationships[i];
                         String rel_vals[]= relationship.split(Edge.RELATIONSHIP_SEP);
                         String rel_key= rel_vals[0];
                         String rel_val= rel_vals[1];
-                        relsMap.put(rel_key, rel_val);
+                        
+                        if (!relsMap.containsKey(rel_key)){
+                            relsMap.put(rel_key, new ArrayList<String>());
+                        }
+                        
+                        ArrayList<String> values =relsMap.get(rel_key);
+                        values.add(rel_val);
                     }
                     if(relsMap.containsKey(Edge.BORN_IN_RELATIONSHIP)){
                         Edge edge= new Edge();
@@ -126,6 +132,47 @@ public class WikiJobResource {
                         }
                         relationship_id++;
                         edges.add(edge);
+                    }
+                    
+                    if(relsMap.containsKey(Edge.MARRIED_WITH_RELATIONSHIP)){
+                        for (String value : relsMap.get(Edge.MARRIED_WITH_RELATIONSHIP)) {
+                            Node spouseNode = new Node();
+                            spouseNode.setId(node_id);
+                            spouseNode.setKind(Node.PERSON_KIND_NODE);
+                            spouseNode.setLabel(value);
+                            nodes.add(spouseNode);
+                            node_id++;
+
+                            Edge edge = new Edge();
+                            edge.setId(relationship_id);
+                            edge.setFrom(spouseNode.getId());
+                            edge.setTo(node.getId());
+                            edge.setName(Edge.MARRIED_WITH_RELATIONSHIP);
+                            relationship_id++;
+                            edges.add(edge);
+                        }
+
+                    }
+
+                    if (relsMap.containsKey(Edge.SON_OR_DAUGHTER_RELATIONSHIP)) {
+                        for (String value : relsMap.get(Edge.SON_OR_DAUGHTER_RELATIONSHIP)) {
+                            Node childNode = new Node();
+                            childNode.setId(node_id);
+                            childNode.setKind(Node.PERSON_KIND_NODE);
+                            childNode.setLabel(value);
+                            nodes.add(childNode);
+                            node_id++;
+
+                            Edge edge = new Edge();
+                            edge.setId(relationship_id);
+                            edge.setFrom(childNode.getId());
+                            edge.setTo(node.getId());
+                            edge.setName(Edge.SON_OR_DAUGHTER_RELATIONSHIP);
+                            relationship_id++;
+                            edges.add(edge);
+                        }
+
+                        
                     }
                 }
             }
