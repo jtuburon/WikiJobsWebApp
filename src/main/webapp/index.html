@@ -40,6 +40,14 @@
 
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
+                <ul class="nav" id="side-menu">
+                        <li>
+                            <a href="javascript:info_index();"><i class="fa fa-edit fa-fw"></i> Info del Equipo</a>
+                        </li>
+                </ul>
+                </div>
+                
+                <div class="sidebar-nav navbar-collapse">
                    <form id="job_form" role="form">
                         <div class="form-group">
                             <label for="countryName">Pais:</label>
@@ -53,11 +61,10 @@
                             <label for="toDate">Fecha Fin:</label>
                             <input type="text" class="form-control datepicker" value="2015-10-01" data-date-format="yyyy-mm-dd" id="toDate">
                         </div>
-                        <button onClick="javascript:runJob()" type="button" class="btn btn-default">Buscar</button>
+                       <button onClick="javascript:runJob()" type="button" class="btn btn-default">Buscar</button>
                    </form>
-
                 </div>
-                
+
                 <div class="sidebar-nav navbar-collapse">
                    <div class="form-group">
                        <label for="filter">Filtro:</label>

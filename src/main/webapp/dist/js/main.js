@@ -167,3 +167,7 @@ function filterAndDraw() {
         }
     });
 }
+
+function info_index(){
+    $('#page-wrapper').load('info.html');
+}
